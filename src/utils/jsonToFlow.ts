@@ -1,6 +1,12 @@
-import type { Node, Edge } from '@xyflow/react';
+import type { Edge, Node } from '@xyflow/react';
 
-export type JsonValueType = 'string' | 'number' | 'boolean' | 'null' | 'object' | 'array';
+export type JsonValueType =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'null'
+  | 'object'
+  | 'array';
 
 export interface CardRow {
   key: string;
@@ -82,7 +88,12 @@ function buildCardNode(
 
   const rows: CardRow[] = [];
 
-  if (type === 'object' && value && typeof value === 'object' && !Array.isArray(value)) {
+  if (
+    type === 'object' &&
+    value &&
+    typeof value === 'object' &&
+    !Array.isArray(value)
+  ) {
     for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
       const valType = getValueType(val);
       const childPath = `${path}.${key}`;
@@ -150,10 +161,11 @@ function buildCardNode(
 
         if (!isCollapsed) {
           buildCardNode(item, childPath, depth + 1, ctx);
-          const parentLabel =
-            path.includes('.') ? path.split('.').pop()! :
-            path.includes('[') ? path.split('[')[0].split('.').pop()! :
-            path;
+          const parentLabel = path.includes('.')
+            ? (path.split('.').pop() ?? path)
+            : path.includes('[')
+            ? (path.split('[')[0].split('.').pop() ?? path)
+            : path;
 
           ctx.edges.push({
             id: `e-${nodeId}-${childPath}`,
@@ -285,7 +297,11 @@ function layoutNodes(nodes: Node<CardNodeData>[], edges: Edge[]): void {
 
     for (const childId of children) {
       const childH = subtreeHeight.get(childId) || 0;
-      positionNode(childId, x + NODE_WIDTH + HORIZONTAL_GAP, currentY + childH / 2);
+      positionNode(
+        childId,
+        x + NODE_WIDTH + HORIZONTAL_GAP,
+        currentY + childH / 2
+      );
       currentY += childH + VERTICAL_GAP;
     }
   }

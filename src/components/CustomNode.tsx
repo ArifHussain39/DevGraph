@@ -1,9 +1,11 @@
 'use client';
 
+import { type NodeProps, Handle, Position } from '@xyflow/react';
 import React, { memo, useCallback } from 'react';
-import { Handle, Position, type NodeProps } from '@xyflow/react';
-import type { CardNodeData, JsonValueType } from '@/utils/jsonToFlow';
+
 import { useAppStore } from '@/store/store';
+
+import type { CardNodeData, JsonValueType } from '@/utils/jsonToFlow';
 
 /** Color map for type badges */
 const typeColorMap: Record<JsonValueType, string> = {
@@ -44,17 +46,21 @@ function CardNodeComponent({ data, id }: NodeProps) {
       {/* Rows */}
       {nodeData.rows.map((row, idx) => {
         const isLinked = !!row.childNodeId;
-        const isSearchMatch = matchesSearch(row.key) || matchesSearch(row.value);
+        const isSearchMatch =
+          matchesSearch(row.key) || matchesSearch(row.value);
 
         return (
           <div
             key={idx}
-            className={`card-row ${isSearchMatch ? 'card-row-search-match' : ''}`}
+            className={`card-row ${
+              isSearchMatch ? 'card-row-search-match' : ''
+            }`}
           >
-            <span className='card-row-key'>
-              {row.key}:
-            </span>
-            <span className='card-row-value' style={{ color: typeColorMap[row.type] }}>
+            <span className='card-row-key'>{row.key}:</span>
+            <span
+              className='card-row-value'
+              style={{ color: typeColorMap[row.type] }}
+            >
               {row.colorSwatch && (
                 <span
                   className='color-swatch'
@@ -80,7 +86,11 @@ function CardNodeComponent({ data, id }: NodeProps) {
 
       {/* If no linked rows, still provide a default source handle */}
       {!nodeData.rows.some((r) => r.childNodeId) && (
-        <Handle type='source' position={Position.Right} className='card-handle' />
+        <Handle
+          type='source'
+          position={Position.Right}
+          className='card-handle'
+        />
       )}
     </div>
   );

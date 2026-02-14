@@ -1,22 +1,25 @@
 'use client';
 
-import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import {
-  ReactFlow,
+  type NodeTypes,
   Background,
+  BackgroundVariant,
   Controls,
   MiniMap,
-  useNodesState,
-  useEdgesState,
-  type NodeTypes,
-  BackgroundVariant,
   Panel,
+  ReactFlow,
+  useEdgesState,
+  useNodesState,
 } from '@xyflow/react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+
 import '@xyflow/react/dist/style.css';
 
-import { useAppStore } from '@/store/store';
-import { jsonToFlow } from '@/utils/jsonToFlow';
 import { CardNode } from '@/components/CustomNode';
+
+import { useAppStore } from '@/store/store';
+
+import { jsonToFlow } from '@/utils/jsonToFlow';
 
 const nodeTypes: NodeTypes = {
   cardNode: CardNode as unknown as NodeTypes['cardNode'],
@@ -42,9 +45,12 @@ export default function GraphPanel() {
     setEdges(flowEdges);
   }, [flowNodes, flowEdges, setNodes, setEdges]);
 
-  const onInit = useCallback((instance: { fitView: (opts?: object) => void }) => {
-    setTimeout(() => instance.fitView({ padding: 0.15 }), 150);
-  }, []);
+  const onInit = useCallback(
+    (instance: { fitView: (opts?: object) => void }) => {
+      setTimeout(() => instance.fitView({ padding: 0.15 }), 150);
+    },
+    []
+  );
 
   const proOptions = useMemo(() => ({ hideAttribution: true }), []);
 
@@ -53,7 +59,15 @@ export default function GraphPanel() {
       <div className='graph-panel empty-state'>
         <div className='empty-state-content'>
           <div className='empty-state-icon'>
-            <svg width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1' opacity='0.3'>
+            <svg
+              width='64'
+              height='64'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='1'
+              opacity='0.3'
+            >
               <circle cx='5' cy='6' r='2' />
               <circle cx='12' cy='12' r='2' />
               <circle cx='19' cy='6' r='2' />
@@ -64,7 +78,10 @@ export default function GraphPanel() {
             </svg>
           </div>
           <h3>No Data to Visualize</h3>
-          <p>Paste or upload JSON in the editor, or load sample data to see the graph</p>
+          <p>
+            Paste or upload JSON in the editor, or load sample data to see the
+            graph
+          </p>
         </div>
       </div>
     );
@@ -99,7 +116,9 @@ export default function GraphPanel() {
         <MiniMap
           nodeStrokeWidth={3}
           className='graph-minimap'
-          maskColor={theme === 'dark' ? 'rgba(0,0,0,0.7)' : 'rgba(200,200,200,0.6)'}
+          maskColor={
+            theme === 'dark' ? 'rgba(0,0,0,0.7)' : 'rgba(200,200,200,0.6)'
+          }
         />
         <Panel position='top-right' className='graph-panel-controls'>
           <span className='node-count-badge'>

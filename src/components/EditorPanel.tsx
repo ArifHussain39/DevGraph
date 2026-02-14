@@ -1,12 +1,17 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { useAppStore } from '@/store/store';
-import { useDebounce } from '@/hooks/useDebounce';
-import { parseJSON, formatJSON } from '@/utils/jsonParser';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-const MonacoEditor = dynamic(() => import('@monaco-editor/react'), { ssr: false });
+import { useDebounce } from '@/hooks/useDebounce';
+
+import { useAppStore } from '@/store/store';
+
+import { formatJSON, parseJSON } from '@/utils/jsonParser';
+
+const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
+  ssr: false,
+});
 
 export default function EditorPanel() {
   const jsonString = useAppStore((s) => s.jsonString);
@@ -47,7 +52,20 @@ export default function EditorPanel() {
     if (!model) return;
 
     // Access monaco from the window
-    const monaco = (window as unknown as { monaco?: { editor: { setModelMarkers: (model: unknown, owner: string, markers: unknown[]) => void }; MarkerSeverity: { Error: number } } }).monaco;
+    const monaco = (
+      window as unknown as {
+        monaco?: {
+          editor: {
+            setModelMarkers: (
+              model: unknown,
+              owner: string,
+              markers: unknown[]
+            ) => void;
+          };
+          MarkerSeverity: { Error: number };
+        };
+      }
+    ).monaco;
     if (!monaco) return;
 
     if (jsonError && jsonError.line) {
@@ -110,7 +128,14 @@ export default function EditorPanel() {
       <div className='panel-toolbar'>
         <div className='panel-toolbar-left'>
           <span className='panel-title'>
-            <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+            <svg
+              width='14'
+              height='14'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+            >
               <path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z' />
               <polyline points='13 2 13 9 20 9' />
             </svg>
@@ -127,13 +152,31 @@ export default function EditorPanel() {
         </div>
         <div className='panel-toolbar-right'>
           <button className='toolbar-btn' onClick={handleCopy} title='Copy'>
-            <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+            <svg
+              width='14'
+              height='14'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+            >
               <rect x='9' y='9' width='13' height='13' rx='2' />
               <path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1' />
             </svg>
           </button>
-          <button className='toolbar-btn' onClick={handleFormat} title='Format JSON'>
-            <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+          <button
+            className='toolbar-btn'
+            onClick={handleFormat}
+            title='Format JSON'
+          >
+            <svg
+              width='14'
+              height='14'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+            >
               <line x1='21' y1='10' x2='3' y2='10' />
               <line x1='21' y1='6' x2='3' y2='6' />
               <line x1='21' y1='14' x2='3' y2='14' />
@@ -141,7 +184,14 @@ export default function EditorPanel() {
             </svg>
           </button>
           <button className='toolbar-btn' onClick={handleClear} title='Clear'>
-            <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+            <svg
+              width='14'
+              height='14'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2'
+            >
               <line x1='18' y1='6' x2='6' y2='18' />
               <line x1='6' y1='6' x2='18' y2='18' />
             </svg>
@@ -157,9 +207,7 @@ export default function EditorPanel() {
           onChange={(v) => setJsonString(v || '')}
           onMount={handleEditorMount}
           options={editorOptions}
-          loading={
-            <div className='editor-loading'>Loading Editor...</div>
-          }
+          loading={<div className='editor-loading'>Loading Editor...</div>}
         />
       </div>
     </div>

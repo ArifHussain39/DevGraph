@@ -52,7 +52,10 @@ export function formatJSON(input: string): string {
 /**
  * Validate JSON string.
  */
-export function validateJSON(input: string): { valid: boolean; error: ParseError | null } {
+export function validateJSON(input: string): {
+  valid: boolean;
+  error: ParseError | null;
+} {
   if (!input.trim()) {
     return { valid: true, error: null };
   }

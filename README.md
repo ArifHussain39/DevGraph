@@ -22,12 +22,14 @@
 ## ✨ Features
 
 ### 🖥️ Editor Panel
+
 - **Monaco Editor** — Full-featured code editor with JSON syntax highlighting
 - **Real-time Validation** — Instant error detection with line/column markers
 - **Auto-format** — One-click JSON prettification
 - **Debounced Parsing** — Efficient re-rendering with 300ms debounce
 
 ### 📊 Graph Visualization
+
 - **Card-style Nodes** — Each JSON object rendered as a card with key-value rows
 - **Type-based Coloring** — Strings (green), numbers (blue), booleans (red), objects (purple), arrays (orange), null (gray)
 - **Labeled Edges** — Edge labels show the key name connecting parent → child
@@ -37,32 +39,38 @@
 - **Node Highlighting** — Hover to highlight nodes
 
 ### 📥 Import Options
+
 - Paste JSON directly into the editor
 - Upload a `.json` / `.yaml` / `.xml` file
 - Load built-in **sample JSON**
 - Fetch JSON from any **URL**
 
 ### 📤 Export
+
 - **PNG** — Export graph as a raster image
 - **SVG** — Export graph as a vector image
 - **JSON** — Download the current JSON data
 
 ### 🔄 Format Conversion
-| From | To |
-|------|------|
+
+| From | To   |
+| ---- | ---- |
 | JSON | YAML |
 | YAML | JSON |
-| JSON | CSV |
-| XML | JSON |
+| JSON | CSV  |
+| XML  | JSON |
 
 ### ⚡ Code Generation
+
 Generate code from your JSON structure:
+
 - **TypeScript** interfaces
 - **JSON Schema** (draft-07)
 - **Go** structs (with JSON tags)
 - **Rust** structs (with serde derive)
 
 ### 🎨 UI & UX
+
 - **Dark / Light Theme** toggle
 - **Resizable Split Panels** — Drag to resize editor vs graph
 - **Search** — Find nodes by key or value
@@ -70,6 +78,7 @@ Generate code from your JSON structure:
 - **Responsive** layout
 
 ### 🔒 Privacy
+
 - **100% Client-side** — No data is ever sent to a server
 - All parsing, conversion, and generation happens in the browser
 
@@ -77,18 +86,18 @@ Generate code from your JSON structure:
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | [Next.js 15](https://nextjs.org/) (App Router) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| Styling | [Tailwind CSS 4](https://tailwindcss.com/) |
-| Graph | [@xyflow/react](https://reactflow.dev/) (React Flow v12) |
-| Editor | [@monaco-editor/react](https://github.com/suren-atoyan/monaco-react) |
-| State | [Zustand](https://zustand-demo.pmnd.rs/) |
-| Panels | [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels) |
-| Export | [html-to-image](https://github.com/bubkoo/html-to-image) |
-| YAML | [js-yaml](https://github.com/nodeca/js-yaml) |
-| XML | [fast-xml-parser](https://github.com/NaturalIntelligence/fast-xml-parser) |
+| Layer     | Technology                                                                  |
+| --------- | --------------------------------------------------------------------------- |
+| Framework | [Next.js 15](https://nextjs.org/) (App Router)                              |
+| Language  | [TypeScript](https://www.typescriptlang.org/)                               |
+| Styling   | [Tailwind CSS 4](https://tailwindcss.com/)                                  |
+| Graph     | [@xyflow/react](https://reactflow.dev/) (React Flow v12)                    |
+| Editor    | [@monaco-editor/react](https://github.com/suren-atoyan/monaco-react)        |
+| State     | [Zustand](https://zustand-demo.pmnd.rs/)                                    |
+| Panels    | [react-resizable-panels](https://github.com/bvaughn/react-resizable-panels) |
+| Export    | [html-to-image](https://github.com/bubkoo/html-to-image)                    |
+| YAML      | [js-yaml](https://github.com/nodeca/js-yaml)                                |
+| XML       | [fast-xml-parser](https://github.com/NaturalIntelligence/fast-xml-parser)   |
 
 ---
 

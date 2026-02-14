@@ -1,9 +1,14 @@
 'use client';
 
 import { useEffect } from 'react';
+
 import { useAppStore } from '@/store/store';
 
-export default function ThemeProvider({ children }: { children: React.ReactNode }) {
+export default function ThemeProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const theme = useAppStore((s) => s.theme);
 
   useEffect(() => {

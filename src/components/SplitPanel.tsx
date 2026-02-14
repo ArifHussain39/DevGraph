@@ -1,11 +1,14 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import React from 'react';
 import { Group, Panel, Separator } from 'react-resizable-panels';
-import EditorPanel from '@/components/EditorPanel';
-import dynamic from 'next/dynamic';
 
-const GraphPanel = dynamic(() => import('@/components/GraphPanel'), { ssr: false });
+import EditorPanel from '@/components/EditorPanel';
+
+const GraphPanel = dynamic(() => import('@/components/GraphPanel'), {
+  ssr: false,
+});
 
 export default function SplitPanel() {
   return (

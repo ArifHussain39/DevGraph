@@ -49,7 +49,12 @@ export const SAMPLE_JSON = {
         name: 'DevGraph Visualizer',
         version: '2.1.0',
         active: true,
-        features: ['JSON Visualization', 'Format Conversion', 'Code Generation', 'Export'],
+        features: [
+          'JSON Visualization',
+          'Format Conversion',
+          'Code Generation',
+          'Export',
+        ],
       },
       {
         name: 'DevGraph API',

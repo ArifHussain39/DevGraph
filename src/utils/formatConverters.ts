@@ -26,7 +26,9 @@ export function jsonToCsv(jsonStr: string): string {
   function flatten(obj: unknown, prefix = ''): Record<string, string> {
     const result: Record<string, string> = {};
     if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
-      for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+      for (const [key, value] of Object.entries(
+        obj as Record<string, unknown>
+      )) {
         const newKey = prefix ? `${prefix}.${key}` : key;
         if (value && typeof value === 'object' && !Array.isArray(value)) {
           Object.assign(result, flatten(value, newKey));

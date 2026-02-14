@@ -7,7 +7,12 @@ function capitalize(str: string): string {
 }
 
 function toTypeName(key: string): string {
-  return capitalize(key.replace(/[^a-zA-Z0-9]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, ''));
+  return capitalize(
+    key
+      .replace(/[^a-zA-Z0-9]/g, '_')
+      .replace(/_+/g, '_')
+      .replace(/^_|_$/g, '')
+  );
 }
 
 function toPascalCase(str: string): string {
@@ -45,19 +50,31 @@ function getTSType(value: unknown, key: string, interfaces: string[]): string {
     return `${itemType}[]`;
   }
   switch (typeof value) {
-    case 'string': return 'string';
-    case 'number': return 'number';
-    case 'boolean': return 'boolean';
+    case 'string':
+      return 'string';
+    case 'number':
+      return 'number';
+    case 'boolean':
+      return 'boolean';
     case 'object': {
       const typeName = toTypeName(key);
-      generateTSInterface(value as Record<string, unknown>, typeName, interfaces);
+      generateTSInterface(
+        value as Record<string, unknown>,
+        typeName,
+        interfaces
+      );
       return typeName;
     }
-    default: return 'unknown';
+    default:
+      return 'unknown';
   }
 }
 
-function generateTSInterface(obj: unknown, name: string, interfaces: string[]): void {
+function generateTSInterface(
+  obj: unknown,
+  name: string,
+  interfaces: string[]
+): void {
   if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
 
   const lines: string[] = [`export interface ${name} {`];
@@ -91,14 +108,18 @@ function toJsonSchema(value: unknown): Record<string, unknown> {
     };
   }
   switch (typeof value) {
-    case 'string': return { type: 'string' };
+    case 'string':
+      return { type: 'string' };
     case 'number':
       return Number.isInteger(value) ? { type: 'integer' } : { type: 'number' };
-    case 'boolean': return { type: 'boolean' };
+    case 'boolean':
+      return { type: 'boolean' };
     case 'object': {
       const properties: Record<string, unknown> = {};
       const required: string[] = [];
-      for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
+      for (const [key, val] of Object.entries(
+        value as Record<string, unknown>
+      )) {
         properties[key] = toJsonSchema(val);
         if (val !== null && val !== undefined) {
           required.push(key);
@@ -106,7 +127,8 @@ function toJsonSchema(value: unknown): Record<string, unknown> {
       }
       return { type: 'object', properties, required };
     }
-    default: return {};
+    default:
+      return {};
   }
 }
 
@@ -127,19 +149,27 @@ function getGoType(value: unknown, key: string, structs: string[]): string {
     return `[]${itemType}`;
   }
   switch (typeof value) {
-    case 'string': return 'string';
-    case 'number': return Number.isInteger(value) ? 'int' : 'float64';
-    case 'boolean': return 'bool';
+    case 'string':
+      return 'string';
+    case 'number':
+      return Number.isInteger(value) ? 'int' : 'float64';
+    case 'boolean':
+      return 'bool';
     case 'object': {
       const typeName = toPascalCase(key);
       generateGoStructDef(value as Record<string, unknown>, typeName, structs);
       return typeName;
     }
-    default: return 'interface{}';
+    default:
+      return 'interface{}';
   }
 }
 
-function generateGoStructDef(obj: unknown, name: string, structs: string[]): void {
+function generateGoStructDef(
+  obj: unknown,
+  name: string,
+  structs: string[]
+): void {
   if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
 
   const lines: string[] = [`type ${name} struct {`];
@@ -170,19 +200,31 @@ function getRustType(value: unknown, key: string, structs: string[]): string {
     return `Vec<${itemType}>`;
   }
   switch (typeof value) {
-    case 'string': return 'String';
-    case 'number': return Number.isInteger(value) ? 'i64' : 'f64';
-    case 'boolean': return 'bool';
+    case 'string':
+      return 'String';
+    case 'number':
+      return Number.isInteger(value) ? 'i64' : 'f64';
+    case 'boolean':
+      return 'bool';
     case 'object': {
       const typeName = toPascalCase(key);
-      generateRustStructDef(value as Record<string, unknown>, typeName, structs);
+      generateRustStructDef(
+        value as Record<string, unknown>,
+        typeName,
+        structs
+      );
       return typeName;
     }
-    default: return 'serde_json::Value';
+    default:
+      return 'serde_json::Value';
   }
 }
 
-function generateRustStructDef(obj: unknown, name: string, structs: string[]): void {
+function generateRustStructDef(
+  obj: unknown,
+  name: string,
+  structs: string[]
+): void {
   if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return;
 
   const lines: string[] = [
